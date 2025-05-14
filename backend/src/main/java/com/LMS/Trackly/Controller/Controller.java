@@ -1,30 +1,41 @@
 package com.LMS.Trackly.Controller;
 
+import com.LMS.Trackly.Entity.FollowUp;
 import com.LMS.Trackly.Entity.Lead;
+import com.LMS.Trackly.Service.FollowUpService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.LMS.Trackly.Service.TracklyService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class Controller {
 
     @Autowired
-    TracklyService service;
+    TracklyService leadService;
+    @Autowired
+    FollowUpService followService;
 
     @PostMapping("/addLead")
     public Lead addStudent(@RequestBody Lead lead){
-        return service.addLead(lead);
+        return leadService.addLead(lead);
     }
 
     @GetMapping("/getLeads")
     public List<Lead> getLead(){
-        return service.getLeads();
+        return leadService.getLeads();
     }
 
+    @PostMapping("/addfollowup")
+    public FollowUp addFollowUp(@RequestBody FollowUp followUp){
+        return followService.addFollowUp(followUp);
+    }
+
+    @GetMapping("/followup/{id}")
+    public Optional<FollowUp> getFollowUp(@PathVariable int id){
+        return followService.getFollowUpById(id);
+    }
 }
