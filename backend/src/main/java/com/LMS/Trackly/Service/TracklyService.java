@@ -1,5 +1,6 @@
 package com.LMS.Trackly.Service;
 
+import com.LMS.Trackly.Entity.FollowUp;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.LMS.Trackly.Entity.Lead;
@@ -21,4 +22,5 @@ public class TracklyService {
     public List<Lead> getLeads(){
         return repo.findAll();
     }
+
 }
