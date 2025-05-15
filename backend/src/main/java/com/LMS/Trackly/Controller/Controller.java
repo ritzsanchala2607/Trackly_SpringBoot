@@ -1,7 +1,9 @@
 package com.LMS.Trackly.Controller;
 
+import com.LMS.Trackly.Entity.Cred;
 import com.LMS.Trackly.Entity.FollowUp;
 import com.LMS.Trackly.Entity.Lead;
+import com.LMS.Trackly.Service.CredService;
 import com.LMS.Trackly.Service.FollowUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,8 @@ public class Controller {
     TracklyService leadService;
     @Autowired
     FollowUpService followService;
+    @Autowired
+    private CredService credService;
 
     @PostMapping("/addLead")
     public Lead addStudent(@RequestBody Lead lead){
@@ -38,4 +42,23 @@ public class Controller {
     public Optional<FollowUp> getFollowUp(@PathVariable int id){
         return followService.getFollowUpById(id);
     }
+
+    @PostMapping("/addCred")
+    public Cred addCred(@RequestBody Cred cred){
+        return credService.saveCredentials(cred);
+    }
+    @GetMapping("/getCred/{id}")
+    public Optional<Cred> getCred(@PathVariable int id){
+        return credService.getCredByUserName(id);
+    }
+
+//    @PostMapping("/addTask")
+//    public Task addTask(@RequestBody Task task) {
+//        return taskService.saveTask(task);
+//    }
+
+//    @GetMapping("/TaskByEmp")
+//    public List<Task> getTasksByEmp(@RequestParam String empName) {
+//        return taskService.getTasksByEmpName(empName);
+//    }
 }
