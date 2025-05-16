@@ -38,8 +38,10 @@ public class Lead {
 
     @Column(name = "status", nullable = false, length = 50)
     private String status;
+    @Column(name = "assignedTo", length = 50)
+    private String assignedTo;
 
-    public Lead(int leadId, String emp_name, String source, Date date, String client, String district, String contact_number, String email, String status) {
+    public Lead(int leadId, String emp_name, String source, Date date, String client, String district, String contact_number, String email, String status,String assignedto) {
         this.leadId = leadId;
         this.emp_name = emp_name;
         this.source = source;
@@ -49,6 +51,7 @@ public class Lead {
         this.contact_number = contact_number;
         this.email = email;
         this.status = status;
+        this.assignedTo=assignedto;
     }
 
     public int getLeadId() {
@@ -121,5 +124,12 @@ public class Lead {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    public String getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(String assignedTo) {
+        this.assignedTo = assignedTo;
     }
 }
