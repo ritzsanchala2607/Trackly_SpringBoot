@@ -33,6 +33,11 @@ public class Controller {
         return leadService.getLeads();
     }
 
+    @PostMapping("/AssignLead")
+    public Lead assignLead(@RequestBody Lead lead){
+        return leadService.updateAssignedTo(lead.getLeadId(), lead.getAssignedTo());
+    }
+
     @PostMapping("/addfollowup")
     public FollowUp addFollowUp(@RequestBody FollowUp followUp){
         return followService.addFollowUp(followUp);
