@@ -17,7 +17,7 @@ public class CredService {
         return credrepo.save(cred);
     }
 
-    public Optional<Cred> getCredByUserName(int id){
+    public Optional<Cred> getCredById(int id){
         return credrepo.findById(id);
     }
 }
