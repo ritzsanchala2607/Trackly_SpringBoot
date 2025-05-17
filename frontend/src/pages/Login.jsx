@@ -48,29 +48,25 @@ const Login = () => {
       password,
     };
 
-    axios
-      .post(`${process.env.REACT_APP_BASE_URL}/api/user/login`, payload, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      })
-      .then((res) => {
-        // eslint-disable-next-line no-alert
-        alert(res.data.message);
-        setEmail('');
-        setPassword('');
-        fetchSession();
-      })
-      .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.error(err);
-        // eslint-disable-next-line no-alert
-        alert('Something went wrong during registration.');
-      });
-    // Handle authentication logic here
-  };
+    axios.post('http://localhost:8082/login', payload, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true,
+  })
+  .then((res) => {
+    alert(res.data); // will show 'Login Successful' or 'Invalid Password'
+    if (res.data === 'Login Successful') {
+      // Redirect to dashboard, save token, etc.
+      navigate('/admindashboard'); // Or based on role
+    }
+  })
+  .catch((err) => {
+    console.error(err);
+    alert('Login Failed');
+  });
 
+  }
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
