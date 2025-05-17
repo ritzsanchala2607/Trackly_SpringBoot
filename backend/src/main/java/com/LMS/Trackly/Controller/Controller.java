@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class Controller {
 
     @Autowired
@@ -67,6 +68,21 @@ public class Controller {
     @GetMapping("/getCred/{id}")
     public Optional<Cred> getCred(@PathVariable int id){
         return credService.getCredById(id);
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody Cred loginCred) {
+        Optional<Cred> credOpt = credService.login(loginCred.getEmail());
+
+        if (credOpt.isPresent()) {
+            Cred storedCred = credOpt.get();
+            if (storedCred.getPassword().equals(loginCred.getPassword())) {
+                return "Login Successful";
+            } else {
+                return "Invalid Password";
+            }
+        }
+        return "User Not Found";
     }
 
     @PostMapping("/addTask")

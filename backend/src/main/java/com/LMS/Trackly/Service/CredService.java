@@ -20,4 +20,8 @@ public class CredService {
     public Optional<Cred> getCredById(int id){
         return credrepo.findById(id);
     }
+    public Optional<Cred> login(String email) {
+        return credrepo.findByEmail(email);
+    }
+
 }
