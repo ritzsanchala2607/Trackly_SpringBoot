@@ -23,6 +23,11 @@ public class Controller {
     @Autowired
     private CredService credService;
 
+    @GetMapping("/")
+    public String Default(){
+        return "Welcome to the Trackly Lead Management API!";
+    }
+
     @PostMapping("/addLead")
     public Lead addStudent(@RequestBody Lead lead){
         return leadService.addLead(lead);
