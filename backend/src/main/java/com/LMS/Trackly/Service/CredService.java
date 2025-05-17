@@ -1,12 +1,12 @@
 package com.LMS.Trackly.Service;
 
-import com.LMS.Trackly.Entity.Cred;
-import com.LMS.Trackly.Entity.FollowUp;
-import com.LMS.Trackly.Repository.CredRepository;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import com.LMS.Trackly.Entity.Cred;
+import com.LMS.Trackly.Repository.CredRepository;
 
 @Service
 public class CredService {
