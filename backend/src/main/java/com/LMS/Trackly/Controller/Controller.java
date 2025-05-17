@@ -32,6 +32,11 @@ public class Controller {
     @Autowired
     private CredService credService;
 
+    @GetMapping("/")
+    public String Default(){
+        return "Welcome to the Trackly Lead Management API!";
+    }
+
     @Autowired
     private TaskService taskService;
     @Autowired
