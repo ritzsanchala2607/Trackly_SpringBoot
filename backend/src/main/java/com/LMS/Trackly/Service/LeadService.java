@@ -58,12 +58,12 @@ public class LeadService {
     // Get unassigned leads
     public List<Lead> getUnassignedLeads() {
         // Fetch leads where assignedTo is null or empty string
-        return leadRepository.findByAssignedToIsNullOrAssignedTo("");
+        return leadRepository.findByAssignedToIsNullOrAssignedTo(Integer.parseInt(""));
     }
 
     // Get leads by employee (assignedTo)
     public List<Lead> getLeadsByEmpId(int assignedTo) {
-        return leadRepository.findByAssignedTo(assignedTo);
+        return leadRepository.findByAssignedTo(String.valueOf(assignedTo));
     }
 
     // Get leads by source
@@ -97,5 +97,6 @@ public class LeadService {
     }
 
     public List<Lead> createLeadsFromExcel(List<Lead> leads) {
+        return leadRepository.saveAll(leads);
     }
 }
