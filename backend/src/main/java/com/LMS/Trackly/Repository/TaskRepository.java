@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.sql.Date;
 import java.util.List;
 
-public interface TaskRepository extends JpaRepository<Task,Object> {
+public interface TaskRepository extends JpaRepository<Task,Integer> {
     @Query("SELECT t FROM Task t WHERE t.followUp.lead.assignedTo = :username")
     List<Task> findTasksByLeadAssignedTo(@Param("username") String username);
     List<Task> findByFollowUp_FollowupId(int followupId);
