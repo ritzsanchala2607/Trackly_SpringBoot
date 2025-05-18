@@ -62,7 +62,7 @@ public class LeadService {
     }
 
     // Get leads by employee (assignedTo)
-    public List<Lead> getLeadsByEmpId(String assignedTo) {
+    public List<Lead> getLeadsByEmpId(int assignedTo) {
         return leadRepository.findByAssignedTo(assignedTo);
     }
 
@@ -94,5 +94,8 @@ public class LeadService {
     // Get leads in a date range
     public List<Lead> getLeadsByDateRange(Date start, Date end) {
         return leadRepository.findByDateBetween(start, end);
+    }
+
+    public List<Lead> createLeadsFromExcel(List<Lead> leads) {
     }
 }
