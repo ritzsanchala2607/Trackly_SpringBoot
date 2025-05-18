@@ -24,6 +24,10 @@ public class Docs {
     @Column(name = "doc_desc")
     private String docDesc;
 
+    @ManyToOne
+    @JoinColumn(name = "task_id")  // foreign key column in docs table
+    private Task task;
+
     // Getters and Setters
     public Long getId() { return id; }
 
@@ -44,4 +48,12 @@ public class Docs {
     public String getDocDesc() { return docDesc; }
 
     public void setDocDesc(String docDesc) { this.docDesc = docDesc; }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
 }

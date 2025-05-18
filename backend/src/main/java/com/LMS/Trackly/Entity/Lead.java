@@ -42,7 +42,7 @@ public class Lead {
     private String district;
 
     @Column(name = "contact_number", nullable = false, length = 15)
-    private String contact_number;
+    private String contactNumber;
 
     @Column(name = "email", nullable = false, length = 150)
     private String email;
@@ -59,7 +59,7 @@ public class Lead {
         this.date = date;
         this.client = client;
         this.district = district;
-        this.contact_number = contact_number;
+        this.contactNumber = contact_number;
         this.email = email;
         this.status = status;
         this.assignedTo=assignedto;
@@ -114,11 +114,11 @@ public class Lead {
     }
 
     public String getContact_number() {
-        return contact_number;
+        return contactNumber;
     }
 
     public void setContact_number(String contact_number) {
-        this.contact_number = contact_number;
+        this.contactNumber = contact_number;
     }
 
     public String getEmail() {

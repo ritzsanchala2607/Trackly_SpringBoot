@@ -215,4 +215,13 @@ public class CredService {
         }
         credRepository.deleteById(id);
     }
+
+    public Cred saveCredentials(Cred cred) {
+        return credRepository.save(cred);
+    }
+
+    public Optional<Cred> getCredById(int id) {
+        return credRepository.findById(id);
+    }
+
 }

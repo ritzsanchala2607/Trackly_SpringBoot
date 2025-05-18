@@ -78,7 +78,7 @@ public class Controller {
 
     @PostMapping("/login")
     public String login(@RequestBody Cred loginCred) {
-        Optional<Cred> credOpt = credService.login(loginCred.getEmail());
+        Optional<Cred> credOpt = Optional.ofNullable(credService.login(loginCred.getEmail(), loginCred.getPassword()));
 
         if (credOpt.isPresent()) {
             Cred storedCred = credOpt.get();
