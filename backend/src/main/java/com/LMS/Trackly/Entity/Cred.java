@@ -2,22 +2,18 @@ package com.LMS.Trackly.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
 @JsonIgnoreProperties({
-    "hibernateLazyInitializer", "handler"
+        "hibernateLazyInitializer", "handler"
 })
 public class Cred {
 
-    public Cred(){
-
+    public Cred() {
     }
 
     public Cred(String email, String username, String password, String role, String district, String phoneNumber) {
@@ -28,24 +24,40 @@ public class Cred {
         this.district = district;
         this.phoneNumber = phoneNumber;
     }
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
-    @Column(name = "username")
+
+    @Column(name = "username", nullable = false)
     private String username;
-    @Column(name = "password")
+
+    @Column(name = "password", nullable = false)
     private String password;
+
     @Column(name = "role")
     private String role;
+
     @Column(name = "district")
     private String district;
+
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
+    @Column(name = "token")
+    private String token;
+
+    @Column(name = "verified")
+    private boolean verified;
+
+    @Column(name = "last_login")
+    private LocalDateTime lastLogin;
+
+    // Getters and setters
 
     public int getId() {
         return id;
@@ -101,5 +113,29 @@ public class Cred {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    public LocalDateTime getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(LocalDateTime lastLogin) {
+        this.lastLogin = lastLogin;
     }
 }

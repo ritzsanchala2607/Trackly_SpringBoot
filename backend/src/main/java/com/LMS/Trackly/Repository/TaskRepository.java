@@ -5,9 +5,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface TaskRepository extends JpaRepository<Task,Object> {
     @Query("SELECT t FROM Task t WHERE t.followUp.lead.assignedTo = :username")
     List<Task> findTasksByLeadAssignedTo(@Param("username") String username);
+    List<Task> findByFollowUp_FollowupId(int followupId);
+    List<Task> findByDeadlineBetween(Date startDate, Date endDate);
+    List<Task> findByFollowUPID(Long followupId);
 }

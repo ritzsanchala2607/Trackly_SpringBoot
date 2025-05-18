@@ -70,6 +70,7 @@ public class Controller {
     public Cred addCred(@RequestBody Cred cred){
         return credService.saveCredentials(cred);
     }
+
     @GetMapping("/getCred/{id}")
     public Optional<Cred> getCred(@PathVariable int id){
         return credService.getCredById(id);
