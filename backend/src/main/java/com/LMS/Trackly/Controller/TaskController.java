@@ -38,7 +38,7 @@ public class TaskController {
 
     // GET /api/task/followup/{followupId}
     @GetMapping("/followup/{followupId}")
-    public ResponseEntity<List<Task>> getByFollowupId(@PathVariable int followupId) {
+    public ResponseEntity<List<Task>> getByFollowupId(@PathVariable Long followupId) {
         List<Task> tasks = taskService.getTasksByFollowupId(followupId);
         return ResponseEntity.ok(tasks);
     }

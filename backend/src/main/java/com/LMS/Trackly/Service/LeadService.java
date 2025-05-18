@@ -58,7 +58,7 @@ public class LeadService {
     // Get unassigned leads
     public List<Lead> getUnassignedLeads() {
         // Fetch leads where assignedTo is null or empty string
-        return leadRepository.findByAssignedToIsNullOrAssignedTo(Integer.parseInt(""));
+        return leadRepository.findByAssignedToIsNullOrAssignedTo("");
     }
 
     // Get leads by employee (assignedTo)
@@ -88,7 +88,7 @@ public class LeadService {
 
     // Get leads by contact number
     public List<Lead> getLeadsByContact(String contactNumber) {
-        return leadRepository.findByContact_number(contactNumber);
+        return leadRepository.findBycontactNumber(contactNumber);
     }
 
     // Get leads in a date range

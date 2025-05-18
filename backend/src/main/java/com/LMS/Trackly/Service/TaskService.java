@@ -55,8 +55,8 @@ public class TaskService {
     }
 
     // Get tasks by followup ID
-    public List<Task> getTasksByFollowupId(int followupId) {
-        return taskRepository.findByFollowUp_FollowupId(followupId);
+    public List<Task> getTasksByFollowupId(Long followupId) {
+        return taskRepository.findByFollowUpFollowUpId(followupId);
     }
 
     // Get tasks by deadline range
@@ -93,6 +93,19 @@ public class TaskService {
             // Log error if needed
             return false;
         }
+    }
+
+    public Task saveTask(Task task) {
+        return taskRepository.save(task);
+    }
+
+    public List<Task> getTasksByAssignedTo(String username) {
+        return taskRepository.findTasksByLeadAssignedTo(username);
+    }
+
+
+    public Optional<Task> getTask(int id) {
+        return taskRepository.findById(id);
     }
 
 }

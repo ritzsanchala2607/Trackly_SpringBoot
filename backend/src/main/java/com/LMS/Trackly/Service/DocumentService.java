@@ -5,16 +5,22 @@ import com.LMS.Trackly.Entity.Docs;
 import com.LMS.Trackly.Entity.Task;
 import com.LMS.Trackly.Repository.DocsRepository;
 import com.LMS.Trackly.Repository.TaskRepository;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.text.Document;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -36,9 +42,18 @@ public class DocumentService {
         return docsRepository.findById(id);
     }
 
-    public String downloadDocument(Long id) {
-        Optional<Docs> doc = docsRepository.findById(id);
-        return doc.map(Docs::getDocPath).orElse("Document not found");
+    public Resource downloadDocument(Long id) throws MalformedURLException {
+        Docs document = docsRepository.findById(id).orElse(null);
+        if (document == null) return null;
+
+        Path filePath = Paths.get("public/documents").resolve(document.getDocPath()).normalize();
+        UrlResource resource = new UrlResource(filePath.toUri());
+
+        if (resource.exists()) {
+            return (Resource) resource;
+        } else {
+            return null;
+        }
     }
 
     public Docs createDocument(Docs doc, MultipartFile file) throws IOException {
@@ -95,7 +110,7 @@ public class DocumentService {
     }
 
     public List<Docs> getByFollowupId(Long followupId) {
-        List<Task> tasks = taskRepository.findByFollowUPID(followupId);
+        List<Task> tasks = taskRepository.findByFollowUpFollowUpId(followupId);
         List<Docs> allDocs = new ArrayList<>();
         for (Task task : tasks) {
             allDocs.addAll(task.getDocuments()); // assumes a OneToMany or ManyToMany mapping exists
@@ -107,4 +122,5 @@ public class DocumentService {
         List<Docs> results = docsRepository.findByLeadIdAndDocNameContainingIgnoreCase(leadId, fileName);
         return results.isEmpty() ? new ArrayList<>() : results;
     }
+
 }

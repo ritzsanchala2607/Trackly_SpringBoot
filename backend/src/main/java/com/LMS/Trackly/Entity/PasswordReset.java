@@ -1,7 +1,6 @@
 package com.LMS.Trackly.Entity;
 
 import jakarta.persistence.*;
-
 import java.time.Instant;
 import java.time.LocalDateTime;
 
@@ -11,7 +10,7 @@ public class PasswordReset {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Assuming you want an auto-increment primary key
+    private Long id;
 
     @Column(name = "email", nullable = false)
     private String email;
@@ -19,12 +18,15 @@ public class PasswordReset {
     @Column(name = "token", nullable = false)
     private String token;
 
-    // Constructors
+    @Column(name = "expiry_date", nullable = false)
+    private Instant expiryDate;
+
     public PasswordReset() {}
 
-    public PasswordReset(String email, String token) {
+    public PasswordReset(String email, String token, Instant expiryDate) {
         this.email = email;
         this.token = token;
+        this.expiryDate = expiryDate;
     }
 
     // --- Getters and Setters ---
@@ -52,9 +54,11 @@ public class PasswordReset {
         this.token = token;
     }
 
-    public void setExpiryDate(LocalDateTime localDateTime) {
+    public Instant getExpiryDate() {
+        return expiryDate;
     }
 
-    public Instant getExpiryDate() {
+    public void setExpiryDate(LocalDateTime expiryDate) {
+        this.expiryDate = Instant.from(expiryDate);
     }
 }

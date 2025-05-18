@@ -26,7 +26,7 @@ public class FollowUpService {
     }
 
     // Get FollowUp by ID
-    public Optional<FollowUp> getFollowUpById(Long id) {
+    public Optional<FollowUp> getFollowUpById(int id) {
         return followUpRepository.findById(id);
     }
 
@@ -63,5 +63,9 @@ public class FollowUpService {
     // Get FollowUps by Username
     public List<FollowUp> getFollowUpsByUsername(String username) {
         return followUpRepository.findByUsername(username);
+    }
+
+    public FollowUp addFollowUp(FollowUp followUp) {
+        return followUpRepository.save(followUp);
     }
 }
