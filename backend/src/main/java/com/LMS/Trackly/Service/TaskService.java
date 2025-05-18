@@ -83,9 +83,16 @@ public class TaskService {
     }
 
     // Delete task
-    public void deleteTask(int id) {
-        Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found for id :: " + id));
-        taskRepository.delete(task);
+    public boolean deleteTask(int id) {
+        try {
+            Task task = taskRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Task not found for id :: " + id));
+            taskRepository.delete(task);
+            return true;
+        } catch (Exception e) {
+            // Log error if needed
+            return false;
+        }
     }
+
 }

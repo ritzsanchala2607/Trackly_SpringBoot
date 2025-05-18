@@ -22,6 +22,9 @@ public class Task {
     @Column(name="description")
     private String description;
 
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Collection<Docs> documents;
+
     public Task(){
 
     }
@@ -64,6 +67,11 @@ public class Task {
         this.description = description;
     }
 
-    public Collection<? extends Docs> getDocuments() {
+    public Collection<Docs> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(Collection<Docs> documents) {
+        this.documents = documents;
     }
 }
