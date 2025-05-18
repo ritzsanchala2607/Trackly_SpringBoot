@@ -2,6 +2,7 @@ package com.LMS.Trackly.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -61,5 +62,8 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Collection<? extends Docs> getDocuments() {
     }
 }

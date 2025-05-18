@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface DocsRepository extends JpaRepository<Docs, Long> {
     List<Docs> findByLeadId(Long leadId);
+
+    List<Docs> findByLeadIdAndDocNameContainingIgnoreCase(Long leadId, String fileName);
 }
