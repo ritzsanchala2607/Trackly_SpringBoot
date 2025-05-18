@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface LeadRepository extends JpaRepository<Lead, Integer> {
 
     // Find leads where assignedTo is null or empty (unassigned)
-    List<Lead> findByAssignedToIsNullOrAssignedTo(String assignedTo);
+    List<Lead> findByAssignedToIsNullOrAssignedTo(int assignedTo);
 
     // Find by assignedTo (employee)
     List<Lead> findByAssignedTo(String assignedTo);
