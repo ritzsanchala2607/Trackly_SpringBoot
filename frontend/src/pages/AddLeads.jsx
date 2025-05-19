@@ -46,7 +46,12 @@ const AddLeads = () => {
     if (!validate()) return;
 
     axios
-      .post(`${process.env.REACT_APP_BASE_URL}/api/lead/`, formData)
+      .post(`${process.env.REACT_APP_BASE_URL}/api/lead/`, formData, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
       .then((res) => {
         alert(res.data.message);
         setFormData({
@@ -132,9 +137,7 @@ const AddLeads = () => {
                     className="w-full border rounded p-2"
                     required
                   />
-                  {errors[name] && (
-                    <p className="text-red-500 text-sm mt-1">{errors[name]}</p>
-                  )}
+                  {errors[name] && <p className="text-red-500 text-sm mt-1">{errors[name]}</p>}
                 </label>
               </div>
             ))}
@@ -156,9 +159,7 @@ const AddLeads = () => {
                   <option value="Youtube">Youtube</option>
                   <option value="News Paper">News Paper</option>
                 </select>
-                {errors.source && (
-                  <p className="text-red-500 text-sm mt-1">{errors.source}</p>
-                )}
+                {errors.source && <p className="text-red-500 text-sm mt-1">{errors.source}</p>}
               </label>
             </div>
 

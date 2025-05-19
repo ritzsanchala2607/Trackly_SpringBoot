@@ -1,5 +1,6 @@
 package com.LMS.Trackly.Controller;
 
+import com.LMS.Trackly.DTO.LoginRequest;
 import com.LMS.Trackly.Entity.Cred;
 import com.LMS.Trackly.Service.CredService;
 
@@ -8,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/user")
-@CrossOrigin(origins = "*")
 public class CredController {
 
     @Autowired
@@ -45,8 +46,10 @@ public class CredController {
      * Authenticates a user with email and password.
      */
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestParam String email, @RequestParam String password) {
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequest request) {
         try {
+            String email = request.getEmail();
+            String password = request.getPassword();
             Cred user = credService.login(email, password);
             return ResponseEntity.ok(user);
         } catch (RuntimeException e) {

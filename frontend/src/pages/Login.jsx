@@ -14,15 +14,15 @@ const Login = () => {
 
   const fetchSession = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/get-token`, {
-        withCredentials: true,
-      });
+      // const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/get-token`, {
+      //   withCredentials: true,
+      // });
 
-      const freshToken = res.data.token;
-      setToken(freshToken);
+      // const freshToken = res.data.token;
+      // setToken(freshToken);
 
       const userData = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/get-user`, {
-        headers: { Authorization: `Bearer ${freshToken}` },
+        // headers: { Authorization: `Bearer ${freshToken}` },
         withCredentials: true,
       });
 
@@ -48,25 +48,26 @@ const Login = () => {
       password,
     };
 
-    axios.post('http://localhost:8082/login', payload, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    withCredentials: true,
-  })
-  .then((res) => {
-    alert(res.data); // will show 'Login Successful' or 'Invalid Password'
-    if (res.data === 'Login Successful') {
-      // Redirect to dashboard, save token, etc.
-      navigate('/admindashboard'); // Or based on role
-    }
-  })
-  .catch((err) => {
-    console.error(err);
-    alert('Login Failed');
-  });
-
-  }
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}/api/user/login`, payload, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+        maxRedirects: 0,
+      })
+      .then((res) => {
+        alert(res.data); // will show 'Login Successful' or 'Invalid Password'
+        if (res.data === 'Login Successful') {
+          // Redirect to dashboard, save token, etc.
+          navigate('/admindashboard'); // Or based on role
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        alert('Login Failed');
+      });
+  };
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
