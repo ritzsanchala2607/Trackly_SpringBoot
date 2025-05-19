@@ -12,19 +12,22 @@ const EmpLeadsTable = () => {
   useEffect(() => {
     const fetchSession = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/get-token`, {
-          withCredentials: true,
-        });
+        // const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/get-token`, {
+        //   withCredentials: true,
+        // });
 
-        const freshToken = res.data.token;
-        setToken(freshToken);
+        // const freshToken = res.data.token;
+        // setToken(freshToken);
 
-        const userData = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/get-user`, {
-          headers: { Authorization: `Bearer ${freshToken}` }, // use freshToken here
-          withCredentials: true,
-        });
+        const userData = await axios.get(
+          `${process.env.REACT_APP_BASE_URL}/api/user/get-employees`,
+          {
+            // headers: { Authorization: `Bearer ${freshToken}` }, // use freshToken here
+            withCredentials: true,
+          },
+        );
 
-        setEmpID(userData.data.user.user_id);
+        setEmpID(userData.data.id);
       } catch (error) {
         console.error('Error fetching session:', error);
       }
@@ -100,7 +103,13 @@ const EmpLeadsTable = () => {
 
   return (
     <div style={{ padding: 24 }}>
-      <Table columns={columns} dataSource={data} pagination={{ pageSize: 5 }} bordered rowKey="lead_id" />
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={{ pageSize: 5 }}
+        bordered
+        rowKey="lead_id"
+      />
     </div>
   );
 };

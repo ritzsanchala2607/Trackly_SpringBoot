@@ -8,9 +8,9 @@ const EmpTrack = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}/api/user/get_employees`)
+      .get(`${process.env.REACT_APP_BASE_URL}/api/user/get-employees`)
       .then((res) => {
-        setData(res.data.employees);
+        setData(res.data);
       })
       .catch((err) => {
         console.error('Error fetching employees', err);
@@ -18,9 +18,9 @@ const EmpTrack = () => {
   }, []);
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'User Name',
+      dataIndex: 'username',
+      key: 'username',
     },
     {
       title: 'Email',
@@ -29,8 +29,8 @@ const EmpTrack = () => {
     },
     {
       title: 'Phone No',
-      dataIndex: 'phone',
-      key: 'phone',
+      dataIndex: 'phoneNumber',
+      key: 'phoneNumber',
     },
     {
       title: 'District',

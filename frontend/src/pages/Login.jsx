@@ -26,7 +26,7 @@ const Login = () => {
         withCredentials: true,
       });
 
-      setRole(userData.data.user.role); // NOTE: use `data.user.role`, not just `user.role`
+      setRole(userData.data.role); // NOTE: use `data.user.role`, not just `user.role`
     } catch (error) {
       setToken('Error');
     }
@@ -57,11 +57,11 @@ const Login = () => {
         maxRedirects: 0,
       })
       .then((res) => {
-        alert(res.data); // will show 'Login Successful' or 'Invalid Password'
-        if (res.data === 'Login Successful') {
-          // Redirect to dashboard, save token, etc.
-          navigate('/admindashboard'); // Or based on role
-        }
+        alert('Login Sucessfull'); // will show 'Login Successful' or 'Invalid Password'
+        if (res.data.role === 'Admin') navigate('/admindashboard');
+        else if (res.data.role === 'Employee') navigate('/empdashboard');
+        else if (res.data.role === 'Marketing Agency') navigate('/madashboard');
+        else navigate('/login');
       })
       .catch((err) => {
         console.error(err);
@@ -229,7 +229,7 @@ const Login = () => {
           {/* Sign Up Link */}
           <p className="text-center mt-8 text-sm text-gray-600">
             Don&apos;t have an account?{' '}
-            <a href="/signup" className="text-blue-600 hover:text-blue-800 font-medium">
+            <a href="/register" className="text-blue-600 hover:text-blue-800 font-medium">
               Sign up
             </a>
           </p>
