@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom';
 const Register = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    user_name: '',
-    name: '',
+    username: '',
+    // name: '',
     email: '',
-    phone: '',
+    phoneNumber: '',
     role: '',
     district: '',
     password: '',
@@ -34,27 +34,22 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const data = new FormData();
-    Object.keys(formData).forEach((key) => {
-      data.append(key, formData[key]);
-    });
-
-    if (selectedFile) {
-      data.append('image', selectedFile);
-    }
+    // Convert formData object directly to JSON
+    const data = {
+      ...formData,
+      // image: selectedFile, // Include this if you're sending an image as base64 or separate upload
+    };
 
     axios
       .post(`${process.env.REACT_APP_BASE_URL}/api/user/register`, data, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: { 'Content-Type': 'application/json' },
       })
       .then((res) => {
-        // eslint-disable-next-line no-alert
         alert(res.data.message);
         setFormData({
-          user_name: '',
-          name: '',
+          username: '',
           email: '',
-          phone: '',
+          phoneNumber: '',
           role: '',
           district: '',
           password: '',
@@ -63,9 +58,7 @@ const Register = () => {
         navigate('/login');
       })
       .catch((err) => {
-        // eslint-disable-next-line no-console
         console.log(err);
-        // eslint-disable-next-line no-alert
         alert('Something went wrong during registration.');
       });
   };
@@ -97,12 +90,12 @@ const Register = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="user_name" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
                 User Name
                 <input
-                  id="user_name"
-                  name="user_name"
-                  value={formData.user_name}
+                  id="username"
+                  name="username"
+                  value={formData.username}
                   onChange={handleChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md"
                   placeholder="example_1"
@@ -111,7 +104,7 @@ const Register = () => {
               </label>
             </div>
 
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                 Full Name
                 <input
@@ -124,16 +117,16 @@ const Register = () => {
                   required
                 />
               </label>
-            </div>
+            </div> */}
 
             <div className="mb-4">
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                Phone No
+              <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-1">
+                phoneNumber No
                 <input
-                  id="phone"
+                  id="phoneNumber"
                   type="tel"
-                  name="phone"
-                  value={formData.phone}
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
                   onChange={handleChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md"
                   placeholder="+91 XXXXX XXXXX"

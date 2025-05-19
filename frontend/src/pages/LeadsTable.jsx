@@ -46,14 +46,14 @@ const LeadsTable = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}/api/user/get_employees`)
+      .get(`${process.env.REACT_APP_BASE_URL}/api/user/get-employees`)
       .then((res) => {
-        setEmployee(res.data.employees);
+        setEmployee(res.data);
 
         // Extract only names
-        const names = res.data.employees.map((emp) => ({
+        const names = res.data.map((emp) => ({
           name: emp.name,
-          id: emp.user_id,
+          id: emp.id,
         }));
         setAvailableUsers(names);
       })
