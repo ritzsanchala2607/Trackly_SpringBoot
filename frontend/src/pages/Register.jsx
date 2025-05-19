@@ -177,20 +177,6 @@ const Register = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-1">
-                Profile Picture
-                <input
-                  id="image"
-                  type="file"
-                  name="image"
-                  onChange={handleFileChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  required
-                />
-              </label>
-            </div>
-
-            <div className="mb-4">
               <div className="flex justify-between items-center mb-1">
                 {/* eslint-disable jsx-a11y/label-has-associated-control */}
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">

@@ -17,7 +17,7 @@ public class LeadController {
     @Autowired
     private LeadService leadService;
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<Lead> createLead(@RequestBody Lead lead) {
         Lead createdLead = leadService.createLead(lead);
         return ResponseEntity.status(201).body(createdLead);

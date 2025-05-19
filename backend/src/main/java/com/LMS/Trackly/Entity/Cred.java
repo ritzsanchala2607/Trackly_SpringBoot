@@ -13,18 +13,6 @@ import java.time.LocalDateTime;
 })
 public class Cred {
 
-    public Cred() {
-    }
-
-    public Cred(String email, String username, String password, String role, String district, String phoneNumber) {
-        this.email = email;
-        this.username = username;
-        this.password = password;
-        this.role = role;
-        this.district = district;
-        this.phoneNumber = phoneNumber;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -52,10 +40,23 @@ public class Cred {
     private String token;
 
     @Column(name = "verified")
-    private boolean verified;
+    private Boolean verified;
 
     @Column(name = "last_login")
     private LocalDateTime lastLogin;
+
+    public Cred() {
+    }
+
+    public Cred(String email, String username, String password, String role, String district, String phoneNumber) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.district = district;
+        this.phoneNumber = phoneNumber;
+        this.verified = false;
+    }
 
     // Getters and setters
 
@@ -123,11 +124,11 @@ public class Cred {
         this.token = token;
     }
 
-    public boolean isVerified() {
+    public Boolean isVerified() {
         return verified;
     }
 
-    public void setVerified(boolean verified) {
+    public void setVerified(Boolean verified) {
         this.verified = verified;
     }
 

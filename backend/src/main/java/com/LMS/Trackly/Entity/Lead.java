@@ -26,7 +26,7 @@ public class Lead {
     @Column(name = "lead_id")
     private int leadId;
 
-    @Column(name = "emp_name", nullable = false, length = 100)
+    @Column(name = "emp_name", length = 100)
     private String emp_name;
 
     @Column(name = "source", nullable = false, length = 100)
