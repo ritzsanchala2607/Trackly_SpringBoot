@@ -8,7 +8,6 @@ const LeadDetail = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const leadData = location.state?.leadData;
-
   const [followUps, setFollowUps] = useState([]);
   const [documents, setDocuments] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
@@ -80,7 +79,7 @@ const LeadDetail = () => {
     const followUp = followUps[index];
     const payload = {
       user_id: leadData.user_id,
-      no_of_followup: index + 1,
+      followup_count: index + 1,
       lead_id: leadData.lead_id,
       conclusion: followUp.note,
       next_followup_date: followUp.date,
@@ -231,7 +230,7 @@ const LeadDetail = () => {
         >
           <div>
             <span style={{ fontWeight: '600', color: '#555' }}>Lead ID:</span>
-            <span style={{ marginLeft: '8px' }}>{leadData.lead_id}</span>
+            <span style={{ marginLeft: '8px' }}>{leadData.leadId}</span>
           </div>
           <div>
             <span style={{ fontWeight: '600', color: '#555' }}>Status:</span>
@@ -266,7 +265,7 @@ const LeadDetail = () => {
         </div>
 
         <div>
-          <span style={{ fontWeight: '600', color: '#555' }}>Assigned To: {leadData.user_id}</span>
+          <span style={{ fontWeight: '600', color: '#555' }}>Assigned To: {leadData.empID}</span>
           {/* <span style={{ marginLeft: '8px' }}>Employee ID: {leadData.user_id}</span> */}
         </div>
       </div>

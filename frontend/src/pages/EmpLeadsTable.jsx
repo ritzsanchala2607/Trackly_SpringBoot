@@ -19,13 +19,10 @@ const EmpLeadsTable = () => {
         // const freshToken = res.data.token;
         // setToken(freshToken);
 
-        const userData = await axios.get(
-          `${process.env.REACT_APP_BASE_URL}/api/user/get-employees`,
-          {
-            // headers: { Authorization: `Bearer ${freshToken}` }, // use freshToken here
-            withCredentials: true,
-          },
-        );
+        const userData = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/get-user`, {
+          // headers: { Authorization: `Bearer ${freshToken}` }, // use freshToken here
+          withCredentials: true,
+        });
 
         setEmpID(userData.data.id);
       } catch (error) {
@@ -37,11 +34,12 @@ const EmpLeadsTable = () => {
   }, []);
 
   useEffect(() => {
-    if (!empId) return; // wait until empId is set
+    if (!empId) console.log('No Emp ID'); // wait until empId is set
 
     const fetchLeads = async () => {
       try {
         const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/lead/emp/${empId}`);
+        console.log(res.data);
         setData(res.data);
       } catch (err) {
         console.error('Error fetching leads:', err);
@@ -54,8 +52,8 @@ const EmpLeadsTable = () => {
   const columns = [
     {
       title: 'ID',
-      dataIndex: 'lead_id',
-      key: 'lead_id',
+      dataIndex: 'leadId',
+      key: 'leadId',
     },
     {
       title: 'Client Name',
@@ -108,7 +106,7 @@ const EmpLeadsTable = () => {
         dataSource={data}
         pagination={{ pageSize: 5 }}
         bordered
-        rowKey="lead_id"
+        rowKey="leadId"
       />
     </div>
   );
