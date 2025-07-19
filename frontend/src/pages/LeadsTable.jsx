@@ -16,27 +16,32 @@ const LeadsTable = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
-  const handleAssign = (key) => {
-    const lead_id = key;
-    const emp_id = assignments[key];
+  const handleAssign = (leadId) => {
+    const emp_id = assignments[leadId];
 
-    console.log(`Assigning employee ${emp_id} to lead with ID ${lead_id}`);
+    const leadRecord = data.find((lead) => lead.leadId === leadId);
+    if (!leadRecord) {
+      alert('Lead data not found.');
+      return;
+    }
+
+    // Construct full payload with existing data + updates
+    const updatedLead = {
+      ...leadRecord,
+      empID: emp_id,
+    };
+
+    console.log(updatedLead);
 
     axios
-      .put(
-        `${process.env.REACT_APP_BASE_URL}/api/lead/${lead_id}`,
-        {
-          user_id: emp_id, // or use the correct field name expected by your backend
+      .put(`${process.env.REACT_APP_BASE_URL}/api/lead/${leadId}`, updatedLead, {
+        headers: {
+          'Content-Type': 'application/json',
         },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true,
-        },
-      )
+        withCredentials: true,
+      })
       .then((res) => {
-        alert(`Lead ${lead_id} assigned successfully`);
+        alert(`Lead ${leadId} assigned successfully`);
       })
       .catch((err) => {
         console.error('Error assigning lead:', err);
@@ -52,7 +57,7 @@ const LeadsTable = () => {
 
         // Extract only names
         const names = res.data.map((emp) => ({
-          name: emp.name,
+          name: emp.username,
           id: emp.id,
         }));
         setAvailableUsers(names);
@@ -64,7 +69,7 @@ const LeadsTable = () => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/api/lead/unassigned`)
       .then((res) => {
-        setData(res.data.leads);
+        setData(res.data);
       })
       .catch((err) => {
         console.error('Error fetching employees', err);
@@ -78,8 +83,8 @@ const LeadsTable = () => {
   const columns = [
     {
       title: 'ID',
-      dataIndex: 'lead_id',
-      key: 'lead_id',
+      dataIndex: 'leadId',
+      key: 'leadId',
     },
     {
       title: 'Client Name',
@@ -101,11 +106,11 @@ const LeadsTable = () => {
       dataIndex: 'district',
       key: 'district',
     },
-    {
-      title: 'Date',
-      dataIndex: 'date',
-      key: 'date',
-    },
+    // {
+    //   title: 'Date',
+    //   dataIndex: 'date',
+    //   key: 'date',
+    // },
     {
       title: 'Source',
       dataIndex: 'source',
@@ -116,13 +121,13 @@ const LeadsTable = () => {
       key: 'assignedTo',
       render: (_, record) => (
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-          {record.user_id === null ? (
+          {record.emp_name === null ? (
             <>
               <Select
-                defaultValue={assignments[record.lead_id] || null}
+                defaultValue={assignments[record.leadId] || null}
                 style={{ width: 150 }}
                 placeholder="Select user"
-                onChange={(value) => handleChange(value, record.lead_id)}
+                onChange={(value) => handleChange(value, record.leadId)}
               >
                 {availableUsers.map((user) => (
                   <Option key={user.id} value={user.id}>
@@ -131,13 +136,13 @@ const LeadsTable = () => {
                 ))}
               </Select>
               <Button
-                onMouseEnter={() => setHoveredKey(record.lead_id)}
+                onMouseEnter={() => setHoveredKey(record.leadId)}
                 onMouseLeave={() => setHoveredKey(null)}
-                onClick={() => handleAssign(record.lead_id)}
+                onClick={() => handleAssign(record.leadId)}
                 style={{
                   border: '1px solid #1890ff',
-                  color: hoveredKey === record.lead_id ? '#fff' : '#1890ff',
-                  backgroundColor: hoveredKey === record.lead_id ? '#1890ff' : '#fff',
+                  color: hoveredKey === record.leadId ? '#fff' : '#1890ff',
+                  backgroundColor: hoveredKey === record.leadId ? '#1890ff' : '#fff',
                   transition: 'all 0.3s',
                 }}
               >

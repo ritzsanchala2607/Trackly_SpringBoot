@@ -18,9 +18,9 @@ const EmpTrack = () => {
   }, []);
   const columns = [
     {
-      title: 'User Name',
-      dataIndex: 'username',
-      key: 'username',
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
     },
     {
       title: 'Email',

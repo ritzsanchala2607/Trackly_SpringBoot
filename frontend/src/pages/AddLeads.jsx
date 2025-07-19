@@ -11,6 +11,7 @@ const AddLeads = () => {
     email: '',
     district: '',
     source: '',
+    status: 'Open',
   });
 
   const [errors, setErrors] = useState({});
@@ -61,6 +62,7 @@ const AddLeads = () => {
           email: '',
           district: '',
           source: '',
+          status: '',
         });
         setErrors({});
       })
